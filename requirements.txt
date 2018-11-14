@@ -1,0 +1,9 @@
+# Web framework
+flask==0.12.2
+gunicorn==19.9.0
+
+# Tests
+-r requirements-test.txt
+
+# Code Quailty
+-r requirements-code-quality.txt
