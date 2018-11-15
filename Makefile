@@ -40,6 +40,5 @@ clean:
 	rm -rf .cache
 	rm -rf .eggs
 	rm -rf *.egg-info
-	rm -rf .env
 
 .PHONY: all clean flake test test_ci flake_ci
