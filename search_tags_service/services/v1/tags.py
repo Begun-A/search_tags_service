@@ -1,4 +1,5 @@
 import string
+from itertools import chain
 
 
 def split_text_by_sentences(text):
@@ -21,18 +22,8 @@ def split_text_by_sentences(text):
     return sentences
 
 
-def make_references(sentence):
-    while sentence:
-        yield sentence[1:4]
-        sentence = sentence[1:]
-
-
-def generate_tags(refers, tags, word, ctag='', added_words=[]):
-    try:
-        next_refers = next(refers)
-    except StopIteration:
-        return added_words
-
+def generate_tags(sent, tags, word, ctag='', added_words=[]):
+    new_sent = sent[1:]
     if word in tags:
         new_word = ctag + ' ' + word if ctag else word
         if tags[word] == {False: {}}:
@@ -40,31 +31,18 @@ def generate_tags(refers, tags, word, ctag='', added_words=[]):
             return added_words
         if False in tags[word]:
             added_words.append(new_word)
-        for w in next_refers:
-            generate_tags(refers, tags[word], w, new_word, added_words)
+        for i, w in enumerate(new_sent[0:3]):
+            generate_tags(new_sent[i:], tags[word], w, new_word, added_words)
     return added_words
 
 
 def get_tags(sent, tags):
     while sent:
-        yield generate_tags(make_references(sent), tags, sent[0], ctag='', added_words=[])
+        yield generate_tags(sent, tags, sent[0], ctag='', added_words=[])
         sent = sent[1:]
 
 
 def get_tags_from_text(input_text, tags):
     text = split_text_by_sentences(input_text)
-    result_tags = []
-    for sent in text:
-        for t in get_tags(sent, tags):
-            result_tags.extend(t)
-    return {
-        'tags': list(set(result_tags))
-    }
-
-
-{'corolla': {False: {}, '2007': {False: {}}},
- 'toyota': {False: {},
-            'corolla': {False: {},
-                        '2007': {False: {}}},
-            '2007': {False: {}}},
- '2007': {False: {}}}
+    result_tags = [t for sent in text for t in get_tags(sent, tags)]
+    return {'tags': list(set(chain.from_iterable(result_tags)))}
