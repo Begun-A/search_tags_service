@@ -20,7 +20,7 @@ test: flake
 	pytest -s --quiet --cov-config=$(test_config) \
 		--cov=$(package) \
 		--cov-report=term \
-		--cov-report=html \
+		--durations=0 \
 		$(tests_dir)
 
 clean:

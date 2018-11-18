@@ -1,4 +1,3 @@
-import multiprocessing
 from os import getenv
 
 # bind adrress
@@ -15,4 +14,6 @@ loglevel = getenv('GUNICORN_LOGLEVEL', 'info')
 timeout = getenv('GUNICORN_TIMEOUT', 600)
 
 # number of workers
-workers = getenv('GUNICORN_WORKERS', multiprocessing.cpu_count())
+workers = getenv('GUNICORN_WORKERS', 1)  # multiprocessing.cpu_count()
+
+#  gunicorn --config ./gunicorn_config.py search_tags_service.instance:app
