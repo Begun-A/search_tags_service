@@ -17,7 +17,7 @@ Run application:
 Run tests:
 `make tests`
 
-**Endpoint for POST rquest:**
+**Endpoint for POST request:**
   
  _http://127.0.0.1:8080/v1/tags_ 
  
