@@ -2,8 +2,11 @@
 Python 3.7
 Service provide searching tags in text.
 
-Create enviroment:
+Create environment:
 `virtualenv -p python3 .env`
+
+Activate environment:
+`source .env/bin/activate`
 
 Install requirements:
 `pip install -r requirements.txt`
@@ -14,4 +17,12 @@ Run application:
 Run tests:
 `make tests`
 
-**Time performance for 10^6 tags less than 10^-5**
+**Endpoint for POST rquest:**
+  
+ _http://127.0.0.1:8080/v1/tags_ 
+ 
+ **JSON example:** 
+ 
+ _{"text": "Example text."}_
+ 
+ **Time performance for 10^6 tags less than 10^(-5)**
