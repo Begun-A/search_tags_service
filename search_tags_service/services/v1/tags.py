@@ -47,7 +47,7 @@ def generate_tags(refers, tags, word, ctag='', added_words=[]):
 
 def get_tags(sent, tags):
     while sent:
-        yield generate_tags(sent, make_references(sent), tags, sent[0], ctag='', added_words=[])
+        yield generate_tags(make_references(sent), tags, sent[0], ctag='', added_words=[])
         sent = sent[1:]
 
 
