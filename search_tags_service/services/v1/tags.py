@@ -22,8 +22,10 @@ def split_text_by_sentences(text):
     return sentences
 
 
-def generate_tags(sent, tags, word, ctag='', added_words=[]):
+def generate_tags(sent, tags, word, mg_tag, ctag='', added_words=[]):
+    """Generate tag for tree and subtrees."""
     new_sent = sent[1:]
+
     if word in tags:
         new_word = ctag + ' ' + word if ctag else word
         if tags[word] == {False: {}}:
@@ -31,18 +33,20 @@ def generate_tags(sent, tags, word, ctag='', added_words=[]):
             return added_words
         if False in tags[word]:
             added_words.append(new_word)
-        for i, w in enumerate(new_sent[0:3]):
-            generate_tags(new_sent[i:], tags[word], w, new_word, added_words)
+        for i, w in enumerate(new_sent[0:mg_tag+1]):
+            generate_tags(new_sent[i:], tags[word], w, mg_tag, new_word, added_words)
     return added_words
 
 
-def get_tags(sent, tags):
+def get_tags_for_sentence(sent, tags, mg_tag):
+    """Move trough tree and subtrees."""
     while sent:
-        yield generate_tags(sent, tags, sent[0], ctag='', added_words=[])
+        yield generate_tags(sent, tags, sent[0], mg_tag, ctag='', added_words=[])
         sent = sent[1:]
 
 
-def get_tags_from_text(input_text, tags):
+def get_tags_from_text(input_text, tags, mg_tag):
+    """Generate list of tags for text by existing tags."""
     text = split_text_by_sentences(input_text)
-    result_tags = [t for sent in text for t in get_tags(sent, tags)]
+    result_tags = [t for sent in text for t in get_tags_for_sentence(sent, tags, mg_tag)]
     return {'tags': list(set(chain.from_iterable(result_tags)))}

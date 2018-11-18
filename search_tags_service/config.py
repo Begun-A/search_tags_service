@@ -6,6 +6,7 @@ class Config(object):
     HOST = getenv('HOST', '0.0.0.0')
     PORT = getenv('PORT', 80)
     REQUEST_LIFETIME = 30
+    MAX_GAP_TAG = getenv('MAX_GAP_TAG', 2)
 
 
 class DevelopmentConfig(Config):

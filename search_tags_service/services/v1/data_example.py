@@ -1,4 +1,4 @@
-# from search_tags_service.services.v1.utils import generate_million_tags
+from search_tags_service.services.v1.utils import generate_million_tags
 
 config_tags = [
     'toyota',
@@ -17,4 +17,4 @@ config_tags = [
     'corolla',
 ]
 
-list_of_tags = config_tags  # + generate_million_tags()
+list_of_tags = config_tags + generate_million_tags()

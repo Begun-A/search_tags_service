@@ -6,7 +6,8 @@ blueprint = Blueprint('public_tags_api', __name__, url_prefix='/v1')
 
 
 def get_tags_by_text():
-    result = get_tags_from_text(request.json['text'], current_app.tags)
+    mgb_tag = current_app.config['MAX_GAP_TAG']
+    result = get_tags_from_text(request.json['text'], current_app.tags, mgb_tag)
     return jsonify(result)
 
 

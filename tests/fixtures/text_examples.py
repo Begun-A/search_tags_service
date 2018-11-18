@@ -2,6 +2,11 @@ import pytest
 
 
 @pytest.fixture
+def mg_tag_2():
+    return 2
+
+
+@pytest.fixture
 def tree_sentences_text_with_difficult_punctuation():
     return """\nNew Toyota Corolla LE 2007, Air Toyota ^Conditioning, *Leather seaters, $.
     \nAlso Available in Different Colours.

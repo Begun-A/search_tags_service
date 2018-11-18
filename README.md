@@ -13,3 +13,5 @@ Run application:
 
 Run tests:
 `make tests`
+
+**Time performance for 10^6 tags less than 10^-5 **
